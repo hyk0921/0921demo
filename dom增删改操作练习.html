@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./jquery-1.10.1.js"></script>
+    <style>
+        table{
+            margin: auto;
+        }
+        div {
+            text-align: center;
+            border: 1px solid black;
+            width: 300px;
+            margin:50px auto;
+        }
+        #employeeTable td,#employeeTable th{
+            border: 1px solid black;
+        }
+        #employeeTable {
+            text-align: left;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
+   <script>
+       $(function(){
+           $("#addEmpbutton").on("click",function(){
+            var $empName=$("#empName")
+            var $email=$("#email")
+            var $salary=$("#salary")
+            var empName=$("#empName").val()
+            var email=$("#email").val()
+            var salary=$("#salary").val()
+               $("<tr></tr>")
+                            .append("<td>"+empName+"</td>")
+                            .append("<td>"+email+"</td>")
+                            .append("<td>"+salary+"</td>")
+                            .append("<td><a href='deleteEmp?id="+Date.now()+"'>Delete</a></td>")
+                            .appendTo("#employeeTable tbody")
+                            // .find("a")
+                            // .click(deleteTr)
+                $empName.val("")
+                $email.val("")
+                $salary.val("")
+           })
+        //    $("#employeeTable a").on("click",deleteTr)
+           function deleteTr(){
+            var $tr = $(this).parents("tr")
+               var name = $tr.children(":first").html()
+               if(confirm("确定删除"+name+"吗？")){
+                   $tr.remove()
+               }
+               return false
+           }
+           $("#employeeTable").delegate("a","click",deleteTr)
+       })
+   </script>
+</head>
+<body>
+    <table id="employeeTable">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Salary</th>
+            <th>&nbsp;</th>
+        </tr>
+        <tr>
+            <td>Tom</td>
+            <td>tom@tom.com</td>
+            <td>5000</td>
+            <td><a href="deleteEmp?id=001">Delete</a></td>
+        </tr>
+        <tr>
+            <td>Jerry</td>
+            <td>jerry@souhu.com</td>
+            <td>8000</td>
+            <td><a href="deleteEmp?id=001" id="001">Delete</a></td>
+        </tr>
+        <tr>
+            <td>Bob</td>
+            <td>bob@tom.com</td>
+            <td>10000</td>
+            <td><a href="deleteEmp?id=001">Delete</a></td>
+        </tr>
+    </table>
+    <div id="formDiv">
+        <h4>添加新员工</h4>
+        <table>
+            <tr>
+                <td class="word">name:</td>
+                <td class="inp">
+                    <input type="text" name="empName" id="empName" value="iii">
+                </td>
+            </tr>
+            <tr>
+                <td class="word">email:</td>
+                <td class="inp">
+                    <input type="text" name="email" id="email" value="jjj" >
+                </td>
+            </tr>
+            <tr>
+                <td class="word">salary:</td>
+                <td class="inp">
+                    <input type="text" name="salary" id="salary" value="1000">
+                </td>
+            </tr>
+            <tr>
+                <td class="inp" colspan="2" align="center">
+                    <button id="addEmpbutton" value="abc">
+                        Submit
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
